@@ -67,21 +67,63 @@ const { title = 'Hendrio - Plumbing Service', description = 'Expert plumbing ser
     // Mobile menu toggle
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const mobileNav = document.querySelector('.mobile-menu-area');
-    if (mobileToggle && mobileNav) {
+    const mobileClose = document.querySelector('.mobile-menu-close');
+    const mobileMenuNav = document.querySelector('.mobile-menu-area .hendrio_menu');
+
+    function closeMobileMenu() {
+      if (mobileNav) mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function openMobileMenu() {
+      if (mobileNav) mobileNav.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    if (mobileToggle) {
       mobileToggle.addEventListener('click', (e) => {
         e.preventDefault();
-        mobileNav.classList.toggle('open');
+        if (mobileNav?.classList.contains('open')) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
       });
     }
 
-    // Mobile submenu toggle
+    // Close button
+    if (mobileClose) {
+      mobileClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMobileMenu();
+      });
+    }
+
+    // Tap outside to close (click on the overlay area)
+    if (mobileMenuNav) {
+      mobileMenuNav.addEventListener('click', (e) => {
+        if (e.target === mobileMenuNav) {
+          closeMobileMenu();
+        }
+      });
+    }
+
+    // Mobile submenu accordion toggle
     document.querySelectorAll('.mobile-menu-area .hendrio_menu > ul > li > a').forEach((link) => {
       const submenu = link.nextElementSibling;
       if (submenu && submenu.classList.contains('sub-menu')) {
         link.addEventListener('click', (e) => {
           e.preventDefault();
-          submenu.classList.toggle('open');
-          link.parentElement?.classList.toggle('open');
+          const parentLi = link.parentElement;
+          const isOpen = parentLi?.classList.contains('open');
+          // Close all other open submenus first
+          document.querySelectorAll('.mobile-menu-area .hendrio_menu > ul > li.open').forEach((openLi) => {
+            if (openLi !== parentLi) {
+              openLi.classList.remove('open');
+            }
+          });
+          // Toggle the clicked one
+          parentLi?.classList.toggle('open', !isOpen);
         });
       }
     });
