@@ -20,12 +20,9 @@ const componentSections: Record<string, string> = {
   'team': 'src/components/sections/Team.astro',
   'pricing': 'src/components/sections/Pricing.astro',
   'counter': 'src/components/sections/Counter.astro',
-  'portfolio-grid': 'src/components/sections/PortfolioGrid.astro',
   'contact-form': 'src/components/sections/ContactForm.astro',
   'blog-sidebar': 'src/components/sections/BlogSidebar.astro',
   'breadcrumb': 'src/components/sections/Breadcrumb.astro',
-  'service-details-content': 'src/components/sections/ServiceDetailsContent.astro',
-  'portfolio-details-content': 'src/components/sections/PortfolioDetailsContent.astro',
 };
 
 const pageSections = new Set([
@@ -38,6 +35,22 @@ const pageSections = new Set([
   'landing-testimonials',
   'landing-faq',
   'landing-blog',
+  'services-page',
+  'why-choose-service',
+  'team-page',
+  'faq-page',
+  'portfolio-grid',
+  'portfolio-details-content',
+  'service-details',
+  'service-search',
+  'service-menu',
+  'service-brochure',
+  'service-contact',
+  'service-main-image',
+  'service-description',
+  'service-detail-boxes',
+  'service-checklist',
+  'service-faq',
 ]);
 
 const pageFileMap: Record<string, string> = {
