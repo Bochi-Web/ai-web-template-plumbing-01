@@ -833,7 +833,6 @@
     }
 
     // ── Preview handlers ──
-    let suppressBarEvent = false;
 
     function handlePreview() {
       const edit = (window as any).__bwLastEdit;
@@ -886,11 +885,9 @@
       }
 
       // Notify EditOverlay to finalize preview visuals
-      if (!suppressBarEvent) {
-        window.dispatchEvent(new CustomEvent('preview-approve', {
-          detail: { section: edit.section }
-        }));
-      }
+      window.dispatchEvent(new CustomEvent('preview-approve', {
+        detail: { section: edit.section }
+      }));
 
       // Update toolbar counter
       window.dispatchEvent(new CustomEvent('staged-edits-changed', {
@@ -906,11 +903,9 @@
       const edit = (window as any).__bwLastEdit;
       if (!edit) return;
 
-      if (!suppressBarEvent) {
-        window.dispatchEvent(new CustomEvent('preview-deactivate', {
-          detail: { section: edit.section }
-        }));
-      }
+      window.dispatchEvent(new CustomEvent('preview-deactivate', {
+        detail: { section: edit.section }
+      }));
 
       editState = 'responded';
       renderEditButtons(editState);
@@ -918,15 +913,11 @@
 
     // Listen for approve/revert from EditOverlay's floating action bar
     window.addEventListener('preview-bar-approve', (() => {
-      suppressBarEvent = true;
       handleApprove();
-      suppressBarEvent = false;
     }) as EventListener);
 
     window.addEventListener('preview-bar-revert', (() => {
-      suppressBarEvent = true;
       handleRevert();
-      suppressBarEvent = false;
     }) as EventListener);
 
     // ── Send message to API ──

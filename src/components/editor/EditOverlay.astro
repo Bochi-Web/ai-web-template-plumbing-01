@@ -597,6 +597,42 @@
     margin-top: 0.75rem;
     min-height: 1.25rem;
   }
+
+  /* Deploy status toast */
+  .bw-deploy-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    z-index: 100010;
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .bw-deploy-toast.bw-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .bw-deploy-toast__icon {
+    flex-shrink: 0;
+    color: #60a5fa;
+    animation: bw-deploy-pulse 2s ease-in-out infinite;
+  }
+  @keyframes bw-deploy-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
 </style>
 
 <!-- Dimmer overlay (sits behind selected section) -->
@@ -624,6 +660,12 @@
       <button class="bw-publish-modal__btn bw-publish-modal__btn--publish" id="bw-publish-confirm" type="button">Publish Now</button>
     </div>
   </div>
+</div>
+
+<!-- Deploy status toast -->
+<div class="bw-deploy-toast" id="bw-deploy-toast">
+  <svg class="bw-deploy-toast__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+  <span class="bw-deploy-toast__text">Publishing… changes will be live in ~60 seconds</span>
 </div>
 
 <!-- Login overlay -->
@@ -920,6 +962,7 @@
       // Store the complete original element and section name
       previewOriginalHTML = sectionEl.outerHTML;
       previewSectionName = section;
+      console.log('[BW Preview] Stored original for section:', section, '| length:', previewOriginalHTML.length);
 
       // Replace the entire element via outerHTML so we don't nest duplicates
       sectionEl.outerHTML = html;
@@ -943,6 +986,7 @@
 
     // Preview deactivate (revert): restore original outerHTML exactly
     window.addEventListener('preview-deactivate', ((e: CustomEvent) => {
+      console.log('[BW Revert] Called. previewedSection:', !!previewedSection, '| hasOriginalHTML:', previewOriginalHTML !== null, '| sectionName:', previewSectionName);
       if (!previewedSection || previewOriginalHTML === null || !previewSectionName) return;
 
       const sectionName = previewSectionName;
@@ -1131,6 +1175,11 @@
         // Clear staged edits
         (window as any).__bwStagedEdits = [];
         window.dispatchEvent(new CustomEvent('staged-edits-changed', { detail: { count: 0 } }));
+
+        // Show deploy status toast
+        const deployToast = document.getElementById('bw-deploy-toast')!;
+        deployToast.classList.add('bw-visible');
+        setTimeout(() => { deployToast.classList.remove('bw-visible'); }, 15000);
 
       } catch (err: any) {
         // Error state — preserve staged edits for retry
