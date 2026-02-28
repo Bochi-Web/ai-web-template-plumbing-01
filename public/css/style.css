@@ -418,7 +418,7 @@ ul.sub-menu li:hover a span{
 <!-- ============================================================== -->*/
 
 .hero-section {
-    background: url(../images/slider/hero-bg.jpg);
+    background: url(https://res.cloudinary.com/don1auqxy/image/upload/v1772260918/templates/plumber/plumber/118911_cnpk46.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -426,7 +426,7 @@ ul.sub-menu li:hover a span{
 }
 
 .slider.hero-section {
-    background: url(../images/slider/hero-bg2.jpg);
+    background: url(https://res.cloudinary.com/don1auqxy/image/upload/v1772262630/templates/plumber/plumber/142868_s9flnc.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
