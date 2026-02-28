@@ -562,6 +562,15 @@ h1.sections {
     margin: 0 0px 0 -55px;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.about-right-thumb > img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
 }
 
 .about-item-list {
@@ -603,6 +612,16 @@ h1.sections {
 .seo-pic {
     float: left;
     margin-right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.seo-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 span.sector {
@@ -751,8 +770,11 @@ span.counter-text {
     transition: .5s;
 }
 
-.service-thumb img {
+.service-thumb > img {
     width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
 }
 
 .service-icon {
@@ -1058,6 +1080,15 @@ h3.choose-title {
     margin-right: 65px;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.tab-thumb > img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
 }
 
 .tab-thumb:before {
@@ -1173,6 +1204,8 @@ li.current a span {
 .team-thumb {
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
 }
 
 .team-thumb:before {
@@ -1191,6 +1224,9 @@ li.current a span {
 
 .team-thumb img {
     width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
 }
 
 .team-content {
@@ -1363,10 +1399,15 @@ ul.team-social-list2 li a:hover {
 
 .testimonial-thumb {
     position: relative;
+    overflow: hidden;
 }
 
 .testimonial-thumb img {
     border-radius: 10px 10px 0 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .testimonial-rating {
@@ -1870,6 +1911,14 @@ h3.cntc-info-title:before {
     background-color: var(--color-bg-light);
     transition: .5s;
     display: inline-block;
+    overflow: hidden;
+}
+
+.process-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 71px;
 }
 
 .process-thumb:before {
@@ -1989,6 +2038,9 @@ span.check-arrow i {
 .blog-thumb img {
     border-radius: 5px;
     width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
 }
 
 .blog-content {
@@ -3050,6 +3102,7 @@ p.service-dtls-desc2 {
 .faq-section {
     background: var(--color-bg-light);
     padding: 100px 0 165px;
+    overflow: hidden;
 }
 
 .row.faq-bg {
@@ -3165,6 +3218,15 @@ h2.accordion-title {
     animation-name: moveleftbounce;
     animation-duration: 6s;
     animation-iteration-count: infinite;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.faq-shape img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 /*Accordion Style two*/
@@ -4756,10 +4818,17 @@ p.description {
 
 .call-to-thumb {
     margin-right: 50px;
+    flex-shrink: 0;
+    width: 200px;
+    height: 180px;
+    overflow: hidden;
 }
 
 .call-to-thumb img {
     border-radius: 5px 0px 0px 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 h2.call-title {
