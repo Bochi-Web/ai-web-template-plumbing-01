@@ -199,7 +199,7 @@ async function callClaude(
       'X-Title': 'Bochi Web Editor',
     },
     body: JSON.stringify({
-      model: 'anthropic/claude-opus-4-20250514',
+      model: 'anthropic/claude-opus-4',
       max_tokens: 16384,
       messages,
     }),
