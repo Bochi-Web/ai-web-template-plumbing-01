@@ -874,6 +874,7 @@
 
     let previewedSection: HTMLElement | null = null;
     let previewOriginalHTML: string | null = null;
+    let previewSectionName: string | null = null;
     let scrollHandler: (() => void) | null = null;
 
     function positionActionBar(sectionEl: HTMLElement) {
@@ -902,61 +903,77 @@
       actionBar.style.left = left + 'px';
     }
 
-    // Preview activate: inject HTML, show green border, show floating bar
+    function cleanupScrollHandler() {
+      if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler);
+        window.removeEventListener('resize', scrollHandler);
+        scrollHandler = null;
+      }
+    }
+
+    // Preview activate: replace section outerHTML in-place (no duplication)
     window.addEventListener('preview-activate', ((e: CustomEvent) => {
       const { section, html } = e.detail;
       const sectionEl = document.querySelector<HTMLElement>(`[data-section="${section}"]`);
       if (!sectionEl) return;
 
-      previewedSection = sectionEl;
-      previewOriginalHTML = sectionEl.innerHTML;
+      // Store the complete original element and section name
+      previewOriginalHTML = sectionEl.outerHTML;
+      previewSectionName = section;
 
-      sectionEl.innerHTML = html;
-      sectionEl.classList.remove('bw-section-selected');
-      sectionEl.classList.add('bw-section-previewing');
+      // Replace the entire element via outerHTML so we don't nest duplicates
+      sectionEl.outerHTML = html;
+
+      // Re-query since the old DOM node was replaced
+      previewedSection = document.querySelector<HTMLElement>(`[data-section="${section}"]`);
+      if (!previewedSection) return;
+
+      previewedSection.classList.remove('bw-section-selected');
+      previewedSection.classList.add('bw-section-previewing');
 
       actionBar.classList.add('bw-visible');
-      requestAnimationFrame(() => positionActionBar(sectionEl));
+      requestAnimationFrame(() => {
+        if (previewedSection) positionActionBar(previewedSection);
+      });
 
-      scrollHandler = () => positionActionBar(sectionEl);
+      scrollHandler = () => { if (previewedSection) positionActionBar(previewedSection); };
       window.addEventListener('scroll', scrollHandler, { passive: true });
       window.addEventListener('resize', scrollHandler, { passive: true });
     }) as EventListener);
 
-    // Preview deactivate (revert): restore original HTML, remove green styling
+    // Preview deactivate (revert): restore original outerHTML exactly
     window.addEventListener('preview-deactivate', ((e: CustomEvent) => {
-      if (!previewedSection || previewOriginalHTML === null) return;
+      if (!previewedSection || previewOriginalHTML === null || !previewSectionName) return;
 
-      previewedSection.innerHTML = previewOriginalHTML;
-      previewedSection.classList.remove('bw-section-previewing');
-      previewedSection.classList.add('bw-section-selected');
+      const sectionName = previewSectionName;
+
+      // Replace with original outerHTML
+      previewedSection.outerHTML = previewOriginalHTML;
+
+      // Re-query the restored element and re-select it
+      const restored = document.querySelector<HTMLElement>(`[data-section="${sectionName}"]`);
+      if (restored) {
+        restored.classList.remove('bw-section-previewing');
+        restored.classList.add('bw-section-selected');
+      }
 
       actionBar.classList.remove('bw-visible');
-
-      if (scrollHandler) {
-        window.removeEventListener('scroll', scrollHandler);
-        window.removeEventListener('resize', scrollHandler);
-        scrollHandler = null;
-      }
+      cleanupScrollHandler();
 
       previewedSection = null;
       previewOriginalHTML = null;
+      previewSectionName = null;
     }) as EventListener);
 
     // Preview approve: keep new HTML, green flash animation
     window.addEventListener('preview-approve', ((e: CustomEvent) => {
-      if (!previewedSection) return;
+      if (!previewedSection || !previewSectionName) return;
 
       previewedSection.classList.remove('bw-section-previewing');
       previewedSection.classList.add('bw-section-approved');
 
       actionBar.classList.remove('bw-visible');
-
-      if (scrollHandler) {
-        window.removeEventListener('scroll', scrollHandler);
-        window.removeEventListener('resize', scrollHandler);
-        scrollHandler = null;
-      }
+      cleanupScrollHandler();
 
       const el = previewedSection;
       setTimeout(() => {
@@ -965,20 +982,21 @@
 
       previewedSection = null;
       previewOriginalHTML = null;
+      previewSectionName = null;
     }) as EventListener);
 
-    // Floating bar button handlers
+    // Floating bar button handlers — use previewSectionName since DOM ref may be stale
     barApproveBtn.addEventListener('click', () => {
-      if (!previewedSection) return;
+      if (!previewSectionName) return;
       window.dispatchEvent(new CustomEvent('preview-bar-approve', {
-        detail: { section: previewedSection.getAttribute('data-section') }
+        detail: { section: previewSectionName }
       }));
     });
 
     barRevertBtn.addEventListener('click', () => {
-      if (!previewedSection) return;
+      if (!previewSectionName) return;
       window.dispatchEvent(new CustomEvent('preview-bar-revert', {
-        detail: { section: previewedSection.getAttribute('data-section') }
+        detail: { section: previewSectionName }
       }));
     });
 
