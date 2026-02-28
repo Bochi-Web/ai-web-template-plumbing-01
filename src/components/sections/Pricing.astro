@@ -1,0 +1,87 @@
+---
+const plans = [
+  {
+    name: "Starter Plan",
+    price: 39,
+    icon: "bi-box",
+    featured: false,
+    features: [
+      { text: "Basic Plumbing Inspection", included: true },
+      { text: "Leak Detection", included: true },
+      { text: "Pipe Repair (up to 2)", included: true },
+      { text: "Emergency Support", included: false },
+      { text: "Water Heater Service", included: false },
+      { text: "Sewer Line Cleaning", included: false },
+    ],
+  },
+  {
+    name: "Growth Plan",
+    price: 59,
+    icon: "bi-rocket-takeoff",
+    featured: true,
+    features: [
+      { text: "Full Plumbing Inspection", included: true },
+      { text: "Leak Detection & Repair", included: true },
+      { text: "Pipe Repair (up to 5)", included: true },
+      { text: "Emergency Support", included: true },
+      { text: "Water Heater Service", included: true },
+      { text: "Sewer Line Cleaning", included: false },
+    ],
+  },
+  {
+    name: "Enterprise Plan",
+    price: 79,
+    icon: "bi-building",
+    featured: false,
+    features: [
+      { text: "Complete Plumbing Audit", included: true },
+      { text: "Unlimited Leak Repairs", included: true },
+      { text: "Unlimited Pipe Repair", included: true },
+      { text: "24/7 Emergency Support", included: true },
+      { text: "Water Heater Installation", included: true },
+      { text: "Sewer Line Cleaning", included: true },
+    ],
+  },
+];
+---
+
+<div data-section="pricing" class="pricing-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-12">
+        <div class="hendrio-section-title text-center padding-lg">
+          <h4>Pricing Plans</h4>
+          <h1>Best Affordable <span>Price</span></h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {plans.map((plan) => (
+        <div class="col-lg-4 col-md-6">
+          <div class={`single-pricing-box ${plan.featured ? 'featured' : ''}`}>
+            <div class="pricing-icon">
+              <i class={`bi ${plan.icon}`}></i>
+            </div>
+            <h4 class="pricing-plan-name">{plan.name}</h4>
+            <div class="pricing-price">
+              <span class="price-currency">$</span>
+              <span class="price-amount">{plan.price}</span>
+              <span class="price-period">/month</span>
+            </div>
+            <ul class="pricing-features">
+              {plan.features.map((feature) => (
+                <li class={feature.included ? 'included' : 'excluded'}>
+                  <i class={`bi ${feature.included ? 'bi-check-lg' : 'bi-x-lg'}`}></i>
+                  {feature.text}
+                </li>
+              ))}
+            </ul>
+            <div class="hendrio-button">
+              <a href="/contact">Choose Plan <i class="bi bi-plus"></i></a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

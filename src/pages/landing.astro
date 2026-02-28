@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import About from '../components/sections/About.astro';
+import Services from '../components/sections/Services.astro';
+import Counter from '../components/sections/Counter.astro';
+import WhyChoose from '../components/sections/WhyChoose.astro';
+import Team from '../components/sections/Team.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import CTA from '../components/sections/CTA.astro';
+import BlogPreview from '../components/sections/BlogPreview.astro';
+import Map from '../components/sections/Map.astro';
+---
+
+<BaseLayout title="Hendrio - Expert Plumbing Service Landing Page">
+  <!-- Landing Hero Section -->
+  <div data-section="landing-hero" class="hero-section d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-12">
+          <div class="sero-content">
+            <h4>100% Satisfaction Guarantee</h4>
+            <h1> We're Top <span>Expert</span> </h1>
+            <h1> in Plumbing </h1>
+            <p class="hero-desc">Competently repurpose go forward benefits without oriented conveniently target business opportunities done</p>
+            <div class="hero-button">
+              <a href="/about"> Get An Estimate <i class="bi bi-plus"></i></a>
+            </div>
+            <div class="hero-shape">
+              <img src="/images/slider/hero-shape.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <About />
+  <Services />
+  <Counter />
+  <WhyChoose />
+  <Team />
+  <Testimonials />
+  <FAQ />
+  <CTA />
+  <BlogPreview />
+  <Map />
+</BaseLayout>

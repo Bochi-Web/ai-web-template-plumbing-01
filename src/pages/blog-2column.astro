@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/sections/Breadcrumb.astro';
+import BlogSidebar from '../components/sections/BlogSidebar.astro';
+---
+
+<BaseLayout title="Blog 2Column - Hendrio Plumbing">
+  <Breadcrumb title="Blog 2Column" />
+
+  <div data-section="blog-content" class="blog-section blog-page-section">
+    <div class="container">
+      <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <div class="row">
+            <!-- Blog Card 1 -->
+            <div class="col-lg-6">
+              <div class="single-blog-box">
+                <div class="blog-thumb">
+                  <img src="/images/resource/blogs1.jpg" alt="Blog Post">
+                  <div class="meta-blog">
+                    <a href="#">By Admin</a>
+                  </div>
+                </div>
+                <div class="blog-content">
+                  <h2 class="blog-title"><a href="/blog-details">Top 5 Secret Home Repairing Tips</a></h2>
+                  <p>Competently repurpose go forward benefits without goal-oriented ROI conveniently.</p>
+                  <div class="blog-btn">
+                    <a href="/blog-details">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Blog Card 2 -->
+            <div class="col-lg-6">
+              <div class="single-blog-box">
+                <div class="blog-thumb">
+                  <img src="/images/resource/blogs2.jpg" alt="Blog Post">
+                  <div class="meta-blog">
+                    <a href="#">By Admin</a>
+                  </div>
+                </div>
+                <div class="blog-content">
+                  <h2 class="blog-title"><a href="/blog-details">10 Most Popular Cleaning Styles for Home</a></h2>
+                  <p>Proactively scale web-enabled content without extensible testing procedures.</p>
+                  <div class="blog-btn">
+                    <a href="/blog-details">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Blog Card 3 -->
+            <div class="col-lg-6">
+              <div class="single-blog-box">
+                <div class="blog-thumb">
+                  <img src="/images/resource/blogs3.jpg" alt="Blog Post">
+                  <div class="meta-blog">
+                    <a href="#">By Admin</a>
+                  </div>
+                </div>
+                <div class="blog-content">
+                  <h2 class="blog-title"><a href="/blog-details">Repairing Pipeline Using Modern Equipment</a></h2>
+                  <p>Monotonectally conceptualize one-to-one paradigms for innovative content.</p>
+                  <div class="blog-btn">
+                    <a href="/blog-details">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Blog Card 4 -->
+            <div class="col-lg-6">
+              <div class="single-blog-box">
+                <div class="blog-thumb">
+                  <img src="/images/resource/blogs4.jpg" alt="Blog Post">
+                  <div class="meta-blog">
+                    <a href="#">By Admin</a>
+                  </div>
+                </div>
+                <div class="blog-content">
+                  <h2 class="blog-title"><a href="/blog-details">Essential Plumbing Maintenance Guide</a></h2>
+                  <p>Globally envisioneer market-driven intellectual capital through premier quality.</p>
+                  <div class="blog-btn">
+                    <a href="/blog-details">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <BlogSidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

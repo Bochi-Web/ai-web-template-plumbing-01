@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/sections/Breadcrumb.astro';
+import BlogSidebar from '../components/sections/BlogSidebar.astro';
+---
+
+<BaseLayout title="Blog Details - Hendrio Plumbing">
+  <Breadcrumb title="Blog Details" />
+
+  <div data-section="blog-content" class="blog-section blog-details-section">
+    <div class="container">
+      <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <div class="blog-details-content">
+            <!-- Featured Image -->
+            <div class="blog-details-thumb">
+              <img src="/images/resource/blogs1.jpg" alt="Blog Details">
+              <div class="blog-date-badge">
+                <span class="date">15</span>
+                <span class="month">July 2023</span>
+              </div>
+            </div>
+
+            <!-- Post Meta -->
+            <div class="blog-details-meta">
+              <span class="blog-author"><i class="bi bi-person"></i> Admin</span>
+              <span class="blog-comments"><i class="bi bi-chat-dots"></i> 2 Comments</span>
+            </div>
+
+            <!-- Post Title -->
+            <h2 class="blog-details-title">Top 5 Secret Home Repairing Tips Discussions</h2>
+
+            <!-- Post Content -->
+            <p>Competently repurpose go forward benefits without goal-oriented ROI. Conveniently target e-business opportunities vis-a-vis impactful deliverables. Progressively provide access to diverse portals and premier platforms. Proactively scale web-enabled content without extensible testing procedures.</p>
+
+            <p>Globally envisioneer market-driven intellectual capital through premier quality vectors. Dynamically envisioneer stand-alone manufactured products vis-a-vis progressive functionalities. Monotonectally conceptualize one-to-one paradigms for innovative content. Completely incubate world-class action items after high-quality catalysts.</p>
+
+            <p>Professionally fabricate competitive web services before timely vortals. Quickly iterate robust process improvements after client-focused core competencies. Holisticly communicate premium schemas via plug-and-play applications.</p>
+
+            <!-- Blockquote -->
+            <div class="blog-quote">
+              <blockquote>
+                <div class="quote-icon">
+                  <i class="flaticon-quote"></i>
+                </div>
+                <p>Proactively scale web-enabled content without extensible testing procedures. Globally envisioneer market-driven intellectual capital through premier quality vectors that drive innovation.</p>
+                <cite>- Robert Smith</cite>
+              </blockquote>
+            </div>
+
+            <!-- Two Column Images -->
+            <div class="row mt-4 mb-4">
+              <div class="col-lg-6 col-md-6">
+                <div class="blog-detail-thumb">
+                  <img src="/images/resource/blogs4.jpg" alt="Blog Image">
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="blog-detail-thumb">
+                  <img src="/images/resource/blogs5.jpg" alt="Blog Image">
+                </div>
+              </div>
+            </div>
+
+            <!-- Tips List -->
+            <h4>Essential Tips for Home Maintenance</h4>
+            <ul class="blog-tips-list">
+              <li><i class="bi bi-check-circle"></i> Regularly inspect your plumbing fixtures for leaks and corrosion</li>
+              <li><i class="bi bi-check-circle"></i> Clean drains monthly to prevent clogs and buildup</li>
+              <li><i class="bi bi-check-circle"></i> Check water pressure periodically and adjust as needed</li>
+              <li><i class="bi bi-check-circle"></i> Insulate exposed pipes during cold weather to prevent freezing</li>
+              <li><i class="bi bi-check-circle"></i> Schedule professional inspections at least once a year</li>
+            </ul>
+
+            <!-- Social Share -->
+            <div class="blog-social-share">
+              <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6">
+                  <div class="share-label">Share This Post:</div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  <div class="social-share-links text-end">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="blog-tags">
+              <span class="tags-label">Tags:</span>
+              <a href="#">Plumbing</a>
+              <a href="#">Repair</a>
+              <a href="#">Service</a>
+              <a href="#">Home</a>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="blog-comments-area">
+              <h3 class="comments-title">2 Comments</h3>
+
+              <!-- Comment 1 -->
+              <div class="single-comment">
+                <div class="comment-avatar">
+                  <img src="/images/resource/comnt-pl.png" alt="Comment Author">
+                </div>
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <h5 class="comment-author">John Anderson</h5>
+                    <span class="comment-date">15 July 2023</span>
+                  </div>
+                  <p>Competently repurpose go forward benefits without goal-oriented ROI. Conveniently target e-business opportunities vis-a-vis impactful deliverables.</p>
+                  <a href="#" class="comment-reply-btn"><i class="bi bi-reply"></i> Reply</a>
+                </div>
+              </div>
+
+              <!-- Comment 2 (Reply) -->
+              <div class="single-comment comment-reply">
+                <div class="comment-avatar">
+                  <img src="/images/resource/comnt-pl.png" alt="Comment Author">
+                </div>
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <h5 class="comment-author">Sarah Williams</h5>
+                    <span class="comment-date">16 July 2023</span>
+                  </div>
+                  <p>Proactively scale web-enabled content without extensible testing procedures. Globally envisioneer market-driven intellectual capital through premier quality.</p>
+                  <a href="#" class="comment-reply-btn"><i class="bi bi-reply"></i> Reply</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Comment Reply Form -->
+            <div class="blog-comment-form">
+              <h3 class="form-title">Leave a Comment</h3>
+              <form action="#" method="post">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="5" placeholder="Your Comment" required></textarea>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <button type="submit" class="theme-btn">Submit Comment <i class="bi bi-arrow-right"></i></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <BlogSidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/sections/Breadcrumb.astro';
+import BlogSidebar from '../components/sections/BlogSidebar.astro';
+---
+
+<BaseLayout title="Blog List - Hendrio Plumbing">
+  <Breadcrumb title="Blog List" />
+
+  <div data-section="blog-content" class="blog-section blog-page-section">
+    <div class="container">
+      <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <!-- Blog Post 1 -->
+          <div class="single-blog-post">
+            <div class="blog-post-thumb">
+              <img src="/images/resource/blogs1.jpg" alt="Blog Post">
+              <div class="blog-date-badge">
+                <span class="date">15</span>
+                <span class="month">July 2023</span>
+              </div>
+            </div>
+            <div class="blog-post-content">
+              <h2 class="blog-post-title"><a href="/blog-details">Top 5 Secret Home Repairing Tips</a></h2>
+              <p>Competently repurpose go forward benefits without goal-oriented ROI. Conveniently target e-business opportunities vis-a-vis impactful deliverables. Progressively provide access to diverse portals and premier platforms.</p>
+              <div class="blog-post-meta">
+                <span class="blog-author"><i class="bi bi-person"></i> Admin</span>
+                <span class="blog-comments"><i class="bi bi-chat-dots"></i> 0 Comments</span>
+              </div>
+              <div class="blog-btn">
+                <a href="/blog-details" class="theme-btn">Read More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blog Post 2 -->
+          <div class="single-blog-post">
+            <div class="blog-post-thumb">
+              <img src="/images/resource/blogs2.jpg" alt="Blog Post">
+              <div class="blog-date-badge">
+                <span class="date">15</span>
+                <span class="month">July 2023</span>
+              </div>
+            </div>
+            <div class="blog-post-content">
+              <h2 class="blog-post-title"><a href="/blog-details">10 Most Popular Cleaning Styles for Home</a></h2>
+              <p>Proactively scale web-enabled content without extensible testing procedures. Globally envisioneer market-driven intellectual capital through premier quality vectors. Dynamically envisioneer stand-alone manufactured products.</p>
+              <div class="blog-post-meta">
+                <span class="blog-author"><i class="bi bi-person"></i> Admin</span>
+                <span class="blog-comments"><i class="bi bi-chat-dots"></i> 0 Comments</span>
+              </div>
+              <div class="blog-btn">
+                <a href="/blog-details" class="theme-btn">Read More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blog Post 3 -->
+          <div class="single-blog-post">
+            <div class="blog-post-thumb">
+              <img src="/images/resource/blogs3.jpg" alt="Blog Post">
+              <div class="blog-date-badge">
+                <span class="date">15</span>
+                <span class="month">July 2023</span>
+              </div>
+            </div>
+            <div class="blog-post-content">
+              <h2 class="blog-post-title"><a href="/blog-details">Repairing Pipeline Using Modern Equipment</a></h2>
+              <p>Monotonectally conceptualize one-to-one paradigms for innovative content. Competently repurpose go forward benefits without goal-oriented ROI. Conveniently target e-business opportunities vis-a-vis impactful deliverables.</p>
+              <div class="blog-post-meta">
+                <span class="blog-author"><i class="bi bi-person"></i> Admin</span>
+                <span class="blog-comments"><i class="bi bi-chat-dots"></i> 0 Comments</span>
+              </div>
+              <div class="blog-btn">
+                <a href="/blog-details" class="theme-btn">Read More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <BlogSidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

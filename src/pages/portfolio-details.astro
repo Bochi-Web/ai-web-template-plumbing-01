@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/sections/Breadcrumb.astro';
+---
+
+<BaseLayout title="Project Details - Hendrio Plumbing">
+  <Breadcrumb title="Project Details" />
+
+  <div data-section="portfolio-details-content" class="portfolio-details-section">
+    <div class="container">
+      <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <div class="portfolio-details-content">
+            <div class="portfolio-main-image">
+              <img src="/images/resource/pr1.jpg" alt="Project Details">
+            </div>
+            <h2 class="portfolio-title">Door Repairing Service</h2>
+            <p>Competently repurpose go forward benefits without goal-oriented ROI. Conveniently target e-business opportunities vis-a-vis impactful deliverables. Progressively provide access to diverse portals and premier platforms. Proactively scale web-enabled content without extensible testing procedures.</p>
+            <p>Globally envisioneer market-driven intellectual capital through premier quality vectors. Dynamically envisioneer stand-alone manufactured products vis-a-vis progressive functionalities. Monotonectally conceptualize one-to-one paradigms for innovative content.</p>
+
+            <div class="row mt-4 mb-4">
+              <div class="col-lg-6 col-md-6">
+                <div class="portfolio-detail-thumb">
+                  <img src="/images/resource/pr2.jpg" alt="Project Image">
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="portfolio-detail-thumb">
+                  <img src="/images/resource/pr3.jpg" alt="Project Image">
+                </div>
+              </div>
+            </div>
+
+            <p>Proactively scale web-enabled content without extensible testing procedures. Globally envisioneer market-driven intellectual capital through premier quality vectors. Dynamically envisioneer stand-alone manufactured products vis-a-vis progressive functionalities.</p>
+
+            <!-- Info Boxes -->
+            <div class="row mt-5">
+              <div class="col-lg-4 col-md-4">
+                <div class="portfolio-info-box text-center">
+                  <div class="portfolio-info-icon">
+                    <i class="flaticon-idea"></i>
+                  </div>
+                  <h4>Generate Idea</h4>
+                  <p>Competently repurpose go forward benefits without goal-oriented ROI.</p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4">
+                <div class="portfolio-info-box text-center">
+                  <div class="portfolio-info-icon">
+                    <i class="flaticon-plan"></i>
+                  </div>
+                  <h4>Concept Plan</h4>
+                  <p>Proactively scale web-enabled content without extensible testing.</p>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4">
+                <div class="portfolio-info-box text-center">
+                  <div class="portfolio-info-icon">
+                    <i class="flaticon-settings"></i>
+                  </div>
+                  <h4>Start Works</h4>
+                  <p>Globally envisioneer market-driven intellectual capital quality.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="portfolio-pagination mt-5">
+            <div class="row">
+              <div class="col-6">
+                <a href="#" class="prev-project"><i class="bi bi-arrow-left"></i> Previous</a>
+              </div>
+              <div class="col-6 text-end">
+                <a href="#" class="next-project">Next <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <div class="project-info-sidebar">
+            <h3 class="sidebar-title">Project Information</h3>
+            <ul class="project-info-list">
+              <li>
+                <span class="info-label">Client:</span>
+                <span class="info-value">Robert Smith</span>
+              </li>
+              <li>
+                <span class="info-label">Completion Date:</span>
+                <span class="info-value">15 June 2023</span>
+              </li>
+              <li>
+                <span class="info-label">Category:</span>
+                <span class="info-value">Plumbing</span>
+              </li>
+              <li>
+                <span class="info-label">Location:</span>
+                <span class="info-value">102/B New York</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

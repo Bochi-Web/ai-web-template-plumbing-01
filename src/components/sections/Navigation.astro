@@ -1,0 +1,128 @@
+---
+import { siteConfig } from '../../data/siteConfig';
+---
+
+<!-- Desktop Navigation -->
+<div id="sticky-header" data-section="navigation" data-global="true" class="hendrio_nav_manu">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-2">
+        <div class="logo">
+          <a class="logo_img" href="/" title={siteConfig.businessName}>
+            <img src="/images/logo.png" alt={siteConfig.businessName}>
+          </a>
+          <a class="main_sticky" href="/" title={siteConfig.businessName}>
+            <img src="/images/logo.png" alt={siteConfig.businessName}>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-10">
+        <nav class="hendrio_menu">
+          <ul class="nav_scroll">
+            {siteConfig.nav.map((item) => (
+              <li>
+                <a href={item.href}>
+                  {item.label}
+                  {item.children && <span><i class="fas fa-chevron-down"></i></span>}
+                </a>
+                {item.children && (
+                  <ul class="sub-menu">
+                    {item.children.map((child) => (
+                      <li><a href={child.href}>{child.label}</a></li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div class="header-menu-right-btn">
+            <div class="header-search-button search-box-outer">
+              <a href="#"><i class="fas fa-search"></i></a>
+            </div>
+            <div class="nav-btn navSidebar-button"><a href="#"><i class="bi bi-list"></i></a></div>
+            <div class="header-button">
+              <a href="/contact">Get a Free Quote</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Navigation -->
+<div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none">
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <a href="/" class="mobile-logo">
+        <img src="/images/logo.png" alt={siteConfig.businessName}>
+      </a>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+    <nav class="hendrio_menu">
+      <ul class="nav_scroll">
+        {siteConfig.nav.map((item) => (
+          <li>
+            <a href={item.href}>
+              {item.label}
+              {item.children && <span><i class="fas fa-chevron-down"></i></span>}
+            </a>
+            {item.children && (
+              <ul class="sub-menu">
+                {item.children.map((child) => (
+                  <li><a href={child.href}>{child.label}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Search Popup -->
+<div class="search-popup">
+  <button class="close-search style-two"><span class="flaticon-multiply"><i class="far fa-times-circle"></i></span></button>
+  <button class="close-search"><i class="bi bi-arrow-up"></i></button>
+  <form method="post" action="#">
+    <div class="form-group">
+      <input type="search" name="search-field" value="" placeholder="Search Here" required>
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </div>
+  </form>
+</div>
+
+<!-- Sidebar Panel -->
+<div class="xs-sidebar-group info-group">
+  <div class="xs-overlay xs-bg-black"></div>
+  <div class="xs-sidebar-widget">
+    <div class="sidebar-widget-container">
+      <div class="widget-heading">
+        <a href="#" class="close-side-widget">
+          <i class="far fa-times-circle"></i>
+        </a>
+      </div>
+      <div class="sidebar-textwidget">
+        <div class="sidebar-info-contents">
+          <div class="content-inner">
+            <div class="nav-logo">
+              <a href="/"><img src="/images/logo2.png" alt={siteConfig.businessName} /></a>
+            </div>
+            <div class="category-icon">
+              <h3 class="widget-title">Social List</h3>
+              <ul class="social-icon">
+                <li class="facebook"><a href={siteConfig.socials.facebook} class="fab fa-facebook-f"></a></li>
+                <li class="twitter"><a href={siteConfig.socials.twitter} class="fab fa-twitter"></a></li>
+                <li class="linkedin"><a href={siteConfig.socials.linkedin} class="fab fa-linkedin-in"></a></li>
+                <li class="instagram"><a href={siteConfig.socials.pinterest} class="fab fa-pinterest-p"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

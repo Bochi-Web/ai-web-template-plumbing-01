@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/sections/Breadcrumb.astro';
+import { siteConfig } from '../data/siteConfig';
+---
+
+<BaseLayout title="Our Services - Hendrio Plumbing">
+  <Breadcrumb title="Our Services" />
+
+  <!-- Services Grid Section -->
+  <div data-section="services-page" class="service-section service-page-section">
+    <div class="container">
+      <div class="row service-bg align-items-center">
+        <div class="col-lg-12">
+          <div class="hendrio-section-title text-center padding-lg">
+            <h4>OUR SERVICES</h4>
+            <h1>We Provide Best <span>Services</span></h1>
+            <h1 class="sections">For any Plumbing</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row service-bg">
+        {siteConfig.services.map((service) => (
+          <div class="col-lg-4 col-md-6">
+            <div class="single-service-box">
+              <div class="service-thumb">
+                <img src={service.image} alt={service.title}>
+                <div class="service-icon">
+                  <img src={service.icon} alt="">
+                </div>
+              </div>
+              <div class="service-content">
+                <div class="service-icon2">
+                  <i class="bi bi-plus"></i>
+                </div>
+                <h3 class="service-title"><a href="/service-details">{service.title}</a></h3>
+                <ul class="service-list2">
+                  {service.features.map((f) => (
+                    <li><i class="bi bi-check-lg"></i> {f}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Us Section -->
+  <div data-section="why-choose-service" class="why-choose-us-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12">
+          <div class="hendrio-section-title text-center padding-lg">
+            <h4>Why Choose Us</h4>
+            <h1>Reasons to Choose <span>{siteConfig.businessName}</span></h1>
+            <h1 class="sections">Plumbing Service</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="choose-us-box text-center">
+            <div class="choose-icon">
+              <img src="/images/resource/choos-icon.png" alt="Expert Workers">
+            </div>
+            <h4>Expert Workers</h4>
+            <p>Competently repurpose go forward benefits without goal-oriented ROI conveniently</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="choose-us-box text-center">
+            <div class="choose-icon">
+              <img src="/images/resource/choos-icon2.png" alt="Fast Delivery">
+            </div>
+            <h4>Fast Delivery</h4>
+            <p>Proactively scale web-enabled content without friendly testing procedures</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="choose-us-box text-center">
+            <div class="choose-icon">
+              <img src="/images/resource/choos-icon3.png" alt="24/7 Support">
+            </div>
+            <h4>24/7 Support</h4>
+            <p>Globally envisioneer market-driven intellectual capital quality main service</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="choose-us-box text-center">
+            <div class="choose-icon">
+              <img src="/images/resource/choos-icon4.png" alt="Best Quality">
+            </div>
+            <h4>Best Quality</h4>
+            <p>Dynamically envisioneer stand-alone manufactured products vis progressive services</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,26 @@
+<div class="scroll-area">
+  <div class="top-wrap">
+    <div class="go-top-btn-wraper">
+      <div class="go-top go-top-button">
+        <i class="bi bi-chevron-double-up"></i>
+        <i class="bi bi-chevron-double-up"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const scrollBtn = document.querySelector('.go-top-button');
+  if (scrollBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        (scrollBtn.closest('.scroll-area') as HTMLElement).style.display = 'block';
+      } else {
+        (scrollBtn.closest('.scroll-area') as HTMLElement).style.display = 'none';
+      }
+    });
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>

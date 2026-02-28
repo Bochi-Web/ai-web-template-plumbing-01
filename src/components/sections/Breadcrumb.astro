@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<div data-section="breadcrumb" class="breatcam-section d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breatcam-content text-center">
+          <h1>{title}</h1>
+          <div class="breatcam-text">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li>{subtitle || title}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+---
+import { siteConfig } from '../../data/siteConfig';
+---
+
+<div data-section="header-top" data-global="true" class="header-top-section">
+  <div class="container">
+    <div class="row align-items-center d-flex">
+      <div class="col-lg-6">
+        <div class="header-address-info">
+          <p>
+            <i class="bi bi-geo-alt"></i> {siteConfig.address.full}
+            <span> <i class="bi bi-envelope-open"></i> {siteConfig.email} </span>
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="header-top-right text-right">
+          <div class="hendrio-social-icon">
+            <ul>
+              {siteConfig.socials.facebook && <li><a href={siteConfig.socials.facebook}><i class="fab fa-facebook-f"></i></a></li>}
+              {siteConfig.socials.twitter && <li><a href={siteConfig.socials.twitter}><i class="fab fa-twitter"></i></a></li>}
+              {siteConfig.socials.linkedin && <li><a href={siteConfig.socials.linkedin}><i class="fab fa-linkedin-in"></i></a></li>}
+              {siteConfig.socials.pinterest && <li><a href={siteConfig.socials.pinterest}><i class="fab fa-pinterest-p"></i></a></li>}
+            </ul>
+          </div>
+          <div class="phone-number">
+            <p> <i class="fas fa-phone-square-alt"></i> <span>Call Us :</span> {siteConfig.phone} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
