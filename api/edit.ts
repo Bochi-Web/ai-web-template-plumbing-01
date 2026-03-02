@@ -3,10 +3,14 @@ import { validateAuth } from './_auth.js';
 
 /**
  * POST /api/edit
- * Receives a section edit request, fetches the file source from GitHub,
- * sends it to Claude API with the user's instructions, and returns the
- * modified code with an explanation.
+ * Receives a section edit request, fetches the component file AND siteConfig.ts
+ * from GitHub, sends both to Claude with the user's instructions, and returns
+ * the modified code for one or both files.
  */
+
+// ── Constants ──
+
+const SITE_CONFIG_PATH = 'src/data/siteConfig.ts';
 
 // ── Section-to-file mapping (duplicated from src/data/sectionMap.ts to avoid
 //    bundling issues with Vercel serverless functions) ──
@@ -122,12 +126,19 @@ async function fetchFileFromGitHub(filePath: string): Promise<string> {
 
 // ── Claude API call ──
 
-const SYSTEM_PROMPT = `You are an expert web developer working as a website editor. You will receive the source code of a website file and a user's request to modify it.
+const SYSTEM_PROMPT = `You are an expert web developer working as a website editor. You will receive TWO files:
+1. A COMPONENT FILE (an Astro component that renders a section of the page)
+2. A CONFIG FILE (siteConfig.ts — the central data store for all text, images, and settings)
+
+The component file reads data from siteConfig via: import { siteConfig } from '../data/siteConfig.ts';
+ALL images, text content, business info, and configurable data live in siteConfig.ts.
 
 Rules:
-- Return the COMPLETE modified file, not just the changes
-- Maintain any existing data-section attributes — never remove them
-- If data-global="true" exists, maintain it
+- Return BOTH files in your response, even if only one changed
+- To change images, text, phone numbers, addresses, etc. → modify siteConfig.ts
+- To change layout, structure, styles, or HTML → modify the component file
+- You may modify both files if the edit requires it
+- Maintain any existing data-section and data-global attributes — never remove them
 - Keep the same CSS approach used in the file (custom properties, classes, etc.)
 - Do not add external dependencies or npm packages
 - Do not add client-side JavaScript unless specifically requested
@@ -138,7 +149,8 @@ Rules:
 Respond in this JSON format:
 {
   "explanation": "Brief description of what you changed and why",
-  "code": "The complete modified file content"
+  "componentCode": "The complete modified component file content",
+  "configCode": "The complete modified siteConfig.ts content OR null if siteConfig was not changed"
 }
 
 Only respond with valid JSON. No markdown, no code fences.`;
@@ -159,11 +171,17 @@ interface RequestBody {
   conversationHistory: ConversationMessage[];
 }
 
+interface ClaudeResponse {
+  explanation: string;
+  componentCode: string;
+  configCode: string | null;
+}
+
 async function callClaude(
   userMessage: string,
   conversationHistory: ConversationMessage[],
   referenceImage?: string | null
-): Promise<{ explanation: string; code: string }> {
+): Promise<ClaudeResponse> {
   const apiKey = getEnv('OPENROUTER_API_KEY');
 
   // Build messages array: system message first, then conversation history
@@ -219,7 +237,22 @@ async function callClaude(
 
   // Parse the JSON response
   const parsed = JSON.parse(text);
-  return { explanation: parsed.explanation, code: parsed.code };
+
+  // Handle both old format (code) and new format (componentCode/configCode)
+  if (parsed.componentCode !== undefined) {
+    return {
+      explanation: parsed.explanation,
+      componentCode: parsed.componentCode,
+      configCode: parsed.configCode || null,
+    };
+  }
+
+  // Fallback: old single-file format
+  return {
+    explanation: parsed.explanation,
+    componentCode: parsed.code,
+    configCode: null,
+  };
 }
 
 // ── Request handler ──
@@ -270,9 +303,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(200).json({
         success: true,
         message: result.explanation,
-        modifiedCode: result.code,
+        modifiedCode: result.componentCode,
         originalCode: null,
         filePath: null,
+        additionalFiles: [],
       });
     }
 
@@ -285,30 +319,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    // ── Fetch the source code from GitHub ──
-    const originalCode = await fetchFileFromGitHub(filePath);
+    // ── Fetch the component source AND siteConfig from GitHub ──
+    const [originalCode, originalConfig] = await Promise.all([
+      fetchFileFromGitHub(filePath),
+      fetchFileFromGitHub(SITE_CONFIG_PATH).catch(() => null),
+    ]);
 
     // ── Build the user message for Claude ──
     let userPrompt: string;
 
+    // Component file block
+    const componentBlock = `Here is the COMPONENT FILE (${filePath}) for the "${section}" section:\n\n\`\`\`\n${originalCode}\n\`\`\``;
+
+    // Config file block (if available)
+    const configBlock = originalConfig
+      ? `\n\nHere is the CONFIG FILE (${SITE_CONFIG_PATH}):\n\n\`\`\`\n${originalConfig}\n\`\`\``
+      : '';
+
     if (action === 'replace') {
-      userPrompt = `Here is the current source code for the "${section}" section:\n\n\`\`\`\n${originalCode}\n\`\`\`\n\nThe user wants: ${message}`;
+      userPrompt = `${componentBlock}${configBlock}\n\nThe user wants: ${message}`;
       if (referenceUrl) {
         userPrompt += `\n\nReference website for inspiration: ${referenceUrl}`;
       }
       if (referenceImage) {
         userPrompt += `\n\nA reference image has been provided — use it as design guidance.`;
       }
-      userPrompt += `\n\nBuild a completely new version of this section. Return the complete new file. Keep the same data-section attribute.`;
+      userPrompt += `\n\nBuild a completely new version of this section. Return both the complete new component file and the config file (modified if needed). Keep the same data-section attribute.`;
     } else {
-      userPrompt = `Here is the current source code for the "${section}" section:\n\n\`\`\`\n${originalCode}\n\`\`\`\n\nThe user wants: ${message}`;
+      userPrompt = `${componentBlock}${configBlock}\n\nThe user wants: ${message}`;
       if (referenceUrl) {
         userPrompt += `\n\nReference website for inspiration: ${referenceUrl}`;
       }
       if (referenceImage) {
         userPrompt += `\n\nA reference image has been provided — use it as design guidance.`;
       }
-      userPrompt += `\n\nModify the file to match the user's request. Return the complete modified file.`;
+      userPrompt += `\n\nModify the files to match the user's request. Return both the complete component file and the config file (modified if needed).`;
     }
 
     if (isGlobal) {
@@ -318,12 +363,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ── Call Claude ──
     const result = await callClaude(userPrompt, conversationHistory, referenceImage);
 
+    // ── Build response with additional files if config was modified ──
+    const additionalFiles: Array<{ filePath: string; modifiedCode: string; originalCode: string }> = [];
+
+    if (result.configCode && originalConfig && result.configCode !== originalConfig) {
+      additionalFiles.push({
+        filePath: SITE_CONFIG_PATH,
+        modifiedCode: result.configCode,
+        originalCode: originalConfig,
+      });
+    }
+
     return res.status(200).json({
       success: true,
       message: result.explanation,
-      modifiedCode: result.code,
+      modifiedCode: result.componentCode,
       originalCode,
       filePath,
+      additionalFiles,
     });
   } catch (error: any) {
     console.error('Edit API error:', error);

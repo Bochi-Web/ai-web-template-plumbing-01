@@ -884,6 +884,26 @@
         stagedEdits.push(stagedEntry);
       }
 
+      // Stage any additional files (e.g. siteConfig.ts) returned by the API
+      if (edit.additionalFiles && edit.additionalFiles.length > 0) {
+        for (const af of edit.additionalFiles) {
+          const afIndex = stagedEdits.findIndex((e: any) => e.filePath === af.filePath);
+          const afEntry = {
+            filePath: af.filePath,
+            originalCode: af.originalCode,
+            modifiedCode: af.modifiedCode,
+            section: edit.section + ':config',
+            description: 'Config update from ' + edit.section + ' edit',
+            timestamp: Date.now(),
+          };
+          if (afIndex >= 0) {
+            stagedEdits[afIndex] = afEntry;
+          } else {
+            stagedEdits.push(afEntry);
+          }
+        }
+      }
+
       // Notify EditOverlay to finalize preview visuals
       window.dispatchEvent(new CustomEvent('preview-approve', {
         detail: { section: edit.section }
@@ -977,12 +997,13 @@
             { role: 'assistant', content: JSON.stringify({ explanation: data.message, code: data.modifiedCode }) }
           );
 
-          // Store the edit result
+          // Store the edit result (including any additional files like siteConfig)
           (window as any).__bwLastEdit = {
             section: currentSection,
             filePath: data.filePath,
             modifiedCode: data.modifiedCode,
             originalCode: data.originalCode,
+            additionalFiles: data.additionalFiles || [],
           };
 
           // Show Preview/Discard buttons
